@@ -1,0 +1,4 @@
+# Rick and Morty Wiki
+
+
+
