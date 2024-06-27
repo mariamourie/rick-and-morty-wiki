@@ -1,30 +1,41 @@
 
 import React from 'react';
+import { useRouter } from 'next/router';
 import { Menubar } from 'primereact/menubar';
-import 'primereact/resources/themes/bootstrap4-light-blue/theme.css';
-import 'primeicons/primeicons.css'
-import 'primeflex/primeflex.css'
+import 'primereact/resources/themes/md-dark-deeppurple/theme.css';
+import 'primeicons/primeicons.css';
+import 'primeflex/primeflex.css';
 
 export default function Header() {
+
+    const router = useRouter();
+
     const items = [
         {
             label: 'Personagens',
-            icon: 'pi pi-user'
+            command: (e) => {
+                router.push('../Characters')
+            }
+
         },
         {
             label: 'Episódios',
-            icon: 'pi pi-video'
+            command: (e) => {
+                router.push('../Episodes')
+            }
         },
         {
             label: 'Localização',
-            icon: 'pi pi-map-marker'
+            command: (e) => {
+                router.push('../Location')
+            }
         }
     ];
 
     return (
-        <>
-            <h1 className='header-title'> Rick e Morty Wiki </h1>
-            <Menubar model={items} />
-        </>
+        <div className='w-full p-2 flex justify-content-around align-items-center'>
+            <h1 className='text-4xl'>Rick and Morty Wiki</h1>
+            <Menubar className='flex flex-row' model={items} />
+        </div>
     )
 }
