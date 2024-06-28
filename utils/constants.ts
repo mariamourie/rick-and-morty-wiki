@@ -11,4 +11,12 @@ export default class C {
         'Alive',
         'Unknown'
     ]
+
+    static readonly SEASON = [
+        1,
+        2,
+        3,
+        4,
+        5
+    ]
 }
