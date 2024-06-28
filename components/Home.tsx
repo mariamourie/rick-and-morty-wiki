@@ -13,9 +13,7 @@ export default function Home() {
             <Header />
             <div className='homeImage w-full flex flex-column mt-5 lign-items-center justify-content-center'>
                 <Card className='mb-2 bg-cyan-500'>
-                    <div className='flipup animation-duration-3000 animation-iteration-infinite animation-ease-in-out'>
-                        <h1>Welcome to Rick and Morty Wiki</h1>
-                    </div>
+                    <h1>Welcome to Rick and Morty Wiki</h1>
                     <p>Discover more about the characters, episodes and locations of the Rick and Morty series.</p>
                 </Card>
                 <Image src={url} alt={"Rick and Morty header"} width={'100%'}>

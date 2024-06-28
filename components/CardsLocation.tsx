@@ -9,9 +9,10 @@ export default function CardLocation({ results }) {
         display = results.map((item) => {
             return (
                 <div className="p-card w-5 m-2">
-                    <Card className="bg-cyan-500 w-full flex flex-column flex-wrap" key={item.id} title={item.name}>
-                        <p><span className="text-gray-600">Dimension: </span><br />{item.dimension}</p>
-                        <p><span className="text-gray-600">Type:</span><br /> {item.type}</p>
+                    <Card className="p-2 w-full flex flex-column flex-wrap" key={item.id}>
+                        <h1 className="text-cyan-600 font-bold">{item.name}</h1>
+                        <p className="flex flex-column"><span className="text-gray-500 font-bold mb-2">Dimension </span>{item.dimension}</p>
+                        <p className="flex flex-column"><span className="text-gray-500 font-bold mb-2">Type</span> {item.type}</p>
                     </Card>
                 </div>
             )

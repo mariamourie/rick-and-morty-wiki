@@ -16,7 +16,6 @@ class Service {
             method: "get",
             url: `${EndPoints.LOCATION}/?page=${page}&${params}`
         }
-        console.log(options.url);
         let response = await axios(options);
         return response.data;
     }
