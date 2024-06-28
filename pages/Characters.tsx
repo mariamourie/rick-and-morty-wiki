@@ -47,12 +47,10 @@ export default function Character() {
         <>
             <Header />
             <Breadcrumb items={[{ label: 'Characters' }]} />
-            <div className='flex flex-column flew-wrap justify-content-center align-items-center'>
-                <div className='flex flex-wrap justify-content-center'>
-                    <Cards results={fetchedData['results']} />
-                </div>
-                <Pagination first={first} info={fetchedData['info']} onPageChange={onPageChange} />
+            <div className='mt-5 flex flex-wrap justify-content-center'>
+                <Cards results={fetchedData['results']} />
             </div>
+            <Pagination first={first} info={fetchedData['info']} onPageChange={onPageChange} />
         </>
     )
 }
