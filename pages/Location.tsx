@@ -1,32 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-
 import 'primereact/resources/themes/arya-blue/theme.css';
+
+import React, { useEffect, useState } from 'react';
 
 import Header from '@/components/Header';
 import CardLocation from '@/components/CardsLocation';
 
 import { getAllTypes } from '@/helpers/getAllTypes';
-import { getDimensions } from '@/helpers/getDimensions';
 
-import { BreadCrumb } from 'primereact/breadcrumb';
-import { Paginator } from 'primereact/paginator';
 import { Dropdown } from 'primereact/dropdown';
+import { Button } from 'primereact/button';
 
 import Service from '@/services/location_service';
+import Pagination from '@/components/Pagination';
+import Breadcrumb from '@/components/BreadCrumb';
 
 export default function Location() {
 
     let pagesNumber = 1;
     let info, results;
-    let types, dimensions = [];
+    let types = [];
     let params = '';
 
-    const router = useRouter();
     const service = new Service();
 
     const [type, setType] = useState(null);
-    const [dimension, setDimension] = useState(null);
 
     const [first, setFirst] = useState(0);
     const [fetchedData, updateFetchedData] = useState([]);
@@ -36,6 +33,7 @@ export default function Location() {
     }, [updateFetchedData]);
 
     const api = () => {
+
         if (params == '') {
             service
                 .getAllLocations(pagesNumber)
@@ -43,8 +41,8 @@ export default function Location() {
                     updateFetchedData(response);
                 });
         } else {
-            if (type != null && dimension != null) {
-                params = `type=${type}&dimension=${dimension}`;
+            if (type != null) {
+                params = `type=${type}`;
             }
             service.getLocationByParams(pagesNumber, params).then((response) =>
                 updateFetchedData(response));
@@ -57,7 +55,6 @@ export default function Location() {
 
     if (results != undefined) {
         types = getAllTypes(results);
-        dimensions = getDimensions(results);
     }
 
     const items = [
@@ -65,13 +62,6 @@ export default function Location() {
             label: 'Location'
         }
     ]
-
-    const home = {
-        icon: 'pi pi-home',
-        command: (e) => {
-            router.push('../')
-        }
-    }
 
     const updateData = function (newInfo, newResults) {
         results = newResults;
@@ -83,31 +73,29 @@ export default function Location() {
         api();
         setFirst(event.first);
     }
+    const onClick = (event) => {
+        setType(null);
+        api();
+    }
 
     const onChangeTypeValue = (event) => {
         setType(event.value);
         params += `type=${event.value}&`;
         api();
     }
-    const onChangeDimensionValue = (event) => {
-        setDimension(event.value);
-        params += `dimension=${event.value}&`
-        api();
-    }
 
     return (
         <div className='w-full'>
             <Header />
-            <BreadCrumb className='w-full bg-cyan-500' model={items} home={home} />
-            <div className='flex justify-content-center mb-5 align-items-left'>
-                <i className='pi pi-filter mt-6 mr-2' />
-                <Dropdown className='p-1 w-4 mt-5 mr-3' value={type} onChange={onChangeTypeValue} options={types} placeholder='Select a type' />
-                <Dropdown className='p-1 w-6 mt-5' value={dimension} onChange={onChangeDimensionValue} options={dimensions} placeholder='Select a dimension' />
+            <Breadcrumb items={items} />
+            <div className='flex justify-content-center mt-5 mb-5 align-items-center'>
+                <Button className='bg-cyan-500 text-white-alpha-90' label='X' onClick={onClick} />
+                <Dropdown className='mr-2 ml-2' value={type} onChange={onChangeTypeValue} options={types} placeholder='Select a type' />
             </div>
             <div className='flex flex-wrap justify-content-center align-items-center'>
                 <CardLocation results={results} />
             </div>
-            <Paginator className='mt-5' first={first} rows={20} totalRecords={826} onPageChange={onPageChange} template={{ layout: 'PrevPageLink CurrentPageReport NextPageLink' }} />
+            <Pagination first={first} info={info} onPageChange={onPageChange} />
         </div>
     )
 }
