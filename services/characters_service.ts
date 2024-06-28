@@ -5,7 +5,7 @@ class Service {
     async getAllCharacters(page: number) {
         const options: AxiosRequestConfig = {
             method: "get",
-            url: EndPoints.CHARACTERS + '/?page=' + page
+            url: `${EndPoints.CHARACTERS}/?page=${page}`
         }
         let response = await axios(options);
         return response.data;
