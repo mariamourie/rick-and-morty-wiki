@@ -22,14 +22,14 @@ export default function Cards({ results }) {
             return (
                 <div key={id} className="flex justify-content-center">
                     <Card className="md:w-25rem m-3 border-round">
-                        <img src={image} alt='Imagem do personagem' />
+                        <img className='w-full border-round' src={image} alt='Imagem do personagem' />
                         <div className="p-2">
-                            <p className='p-card-title text-yellow-400'> {name} </p>
+                            <p className='p-card-title text-cyan-500'> {name} </p>
                             <p><span className={statusClass + ' text-blue-50 p-2 border-round-md'}> {status} </span></p>
-                            <p><span className='text-gray-600'>Specie</span><br /> {species}</p>
-                            <p><span className='text-gray-600'>Gender</span><br /> {gender}</p>
-                            <p><span className='text-gray-600'>Origin</span><br /> {origin.name}</p>
-                            <p><span className='text-gray-600'>Location</span><br />{location.name}</p>
+                            <p className='flex flex-column'><span className='font-bold text-cyan-500'>Specie</span>{species}</p>
+                            <p className='flex flex-column'><span className='font-bold text-cyan-500'>Gender</span>{gender}</p>
+                            <p className='flex flex-column'><span className='font-bold text-cyan-500'>Origin</span>{origin.name}</p>
+                            <p className='flex flex-column'><span className='font-bold text-cyan-500'>Location</span>{location.name}</p>
                         </div>
                     </Card>
                 </div>
