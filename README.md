@@ -1,4 +1,2 @@
-# Rick and Morty Wiki
-
-
+# Rick and Morty Wiki Project
 
