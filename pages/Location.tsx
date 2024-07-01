@@ -2,33 +2,34 @@ import 'primereact/resources/themes/arya-blue/theme.css';
 
 import React, { useEffect, useState } from 'react';
 
+// PRIMEREACT
+import { PaginatorPageChangeEvent } from 'primereact/paginator';
+
+// COMPONENTS
 import Header from '@/components/Header';
 import CardLocation from '@/components/CardsLocation';
-
-import { getAllTypes } from '@/helpers/getAllTypes';
-
-import { Dropdown } from 'primereact/dropdown';
-import { Button } from 'primereact/button';
-
-import Service from '@/services/location_service';
 import Pagination from '@/components/Pagination';
 import Breadcrumb from '@/components/BreadCrumb';
 
-export default function Location() {
+// SERVICES
+import Service from '@/services/location_service';
 
-    let pagesNumber = 1;
-    let info, results;
+// INTERFACES
+import { Info, Response } from '@/interfaces/Response';
+import { Location } from '@/interfaces/Location';
+
+export default function Locations() {
 
     const service = new Service();
 
     const [first, setFirst] = useState(0);
-    const [fetchedData, updateFetchedData] = useState([]);
+    const [fetchedData, updateFetchedData] = useState<Response<Location>>({ info: {} as Info, results: [] });
 
     useEffect(() => {
-        api();
-    }, [updateFetchedData]);
+        api(0);
+    }, []);
 
-    const api = () => {
+    const api = (pagesNumber: number) => {
         service
             .getAllLocations(pagesNumber)
             .then((response) => {
@@ -36,24 +37,15 @@ export default function Location() {
             });
     }
 
-    results = fetchedData['results'];
-    info = fetchedData['info'];
-
     const items = [
         {
             label: 'Location'
         }
     ]
 
-    const updateData = function (newInfo, newResults) {
-        results = newResults;
-        info = newInfo;
-    }
-
-    const onPageChange = (event) => {
-        pagesNumber = event.page + 1;
-        api();
+    const onPageChange = (event: PaginatorPageChangeEvent) => {
         setFirst(event.first);
+        api(event.page + 1);
     }
 
     return (
@@ -61,9 +53,9 @@ export default function Location() {
             <Header />
             <Breadcrumb items={items} />
             <div className='mt-5 flex flex-wrap justify-content-center align-items-center'>
-                <CardLocation results={results} />
+                <CardLocation results={fetchedData.results} />
             </div>
-            <Pagination first={first} info={info} onPageChange={onPageChange} />
+            <Pagination first={first} info={fetchedData.info} onPageChange={onPageChange} />
         </div>
     )
 }

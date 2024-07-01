@@ -3,74 +3,70 @@ import 'primeicons/primeicons.css';
 
 import React, { useEffect, useState } from 'react';
 
+// SERVICES
 import Service from '../services/episodes_service';
 
+// CONSTANTS
 import C from '@/utils/constants';
 
-import { Dropdown } from 'primereact/dropdown';
+// PRIMEREACT
+import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
 import { Button } from 'primereact/button';
+import { PaginatorPageChangeEvent } from 'primereact/paginator';
 
+// COMPONENTS
 import Header from '@/components/Header';
 import EpisodeCards from '../components/EpisodesCard';
 import Pagination from '@/components/Pagination';
 import Breadcrumb from '@/components/BreadCrumb';
 
+// INTERFACES
+import { Info, Response } from '@/interfaces/Response';
+import { Episode } from '@/interfaces/Episode';
+
+
 export default function Episodes() {
 
     const service = new Service();
 
-    let pagesNumber = 1;
-    let info, results;
-    let params = '';
-
-    const [fetchedData, updateFetchedData] = useState([]);
-    const [code, setCode] = useState(null);
+    const [fetchedData, updateFetchedData] = useState<Response<Episode>>({ info: {} as Info, results: [] });
+    const [code, setCode] = useState('');
     const [first, setFirst] = useState(0);
 
     useEffect(() => {
-        api();
-    }, [updateFetchedData]);
+        api(0, '');
+    }, []);
 
-    const api = () => {
+    const api = (pagesNumber: number, params: string) => {
         if (params.length == 0) {
             service
                 .getAllEpisodes(pagesNumber)
                 .then((response) => {
                     updateFetchedData(response);
-
-                    results = fetchedData['results'];
-                    info = fetchedData['info'];
                 })
         } else {
             service
                 .getEpisodeByParams(pagesNumber, `episode=S0${params}`)
                 .then((response) => {
                     updateFetchedData(response);
-                    results = fetchedData['results'];
-                    info = fetchedData['info'];
                 })
         }
 
     }
 
-    results = fetchedData['results'];
-    info = fetchedData['info'];
-
-    const onPageChange = (event) => {
+    const onPageChange = (event: PaginatorPageChangeEvent) => {
         setFirst(event.first);
-        pagesNumber = event.page + 1;
-        api();
+        api(event.page + 1, '');
     }
 
-    const onChangeCodeValue = (event) => {
+    const onChangeCodeValue = (event: DropdownChangeEvent) => {
         setCode(event.value);
-        params = event.value;
-        api();
+        api(first, event.value);
     }
 
-    const onClick = (event) => {
-        setCode(null);
-        api();
+    const onClick = () => {
+        setCode('');
+        api(first, '');
     }
 
     const items = [
@@ -88,9 +84,9 @@ export default function Episodes() {
                 <Dropdown className='w-4 h-3rem' value={code} onChange={onChangeCodeValue} options={C.SEASON} placeholder='Select a season' />
             </div>
             <div className='mt-5 flex flex-wrap justify-content-center align-items-center'>
-                <EpisodeCards results={results} />
+                <EpisodeCards results={fetchedData.results} />
             </div>
-            <Pagination first={first} info={info} onPageChange={onPageChange} />
+            <Pagination first={first} info={fetchedData.info} onPageChange={onPageChange} />
         </>
     )
 }
