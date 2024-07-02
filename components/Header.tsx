@@ -1,9 +1,13 @@
 
 import React from 'react';
+
 import { useRouter } from 'next/router';
+
 import { Menubar } from 'primereact/menubar';
 import 'primereact/resources/themes/md-dark-deeppurple/theme.css';
+
 import 'primeicons/primeicons.css';
+
 import 'primeflex/primeflex.css';
 
 export default function Header() {
@@ -13,20 +17,20 @@ export default function Header() {
     const items = [
         {
             label: 'Characters',
-            command: (e: any) => {
+            command: () => {
                 router.push('../Characters')
             }
 
         },
         {
             label: 'Episodes',
-            command: (e: any) => {
+            command: () => {
                 router.push('../Episodes')
             }
         },
         {
             label: 'Location',
-            command: (e: any) => {
+            command: () => {
                 router.push('../Location')
             }
         }

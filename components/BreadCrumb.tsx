@@ -1,19 +1,21 @@
 import React from 'react';
-import { BreadCrumb } from 'primereact/breadcrumb';
+
 import { useRouter } from 'next/router';
 
-export default function Breadcrumb({ items }) {
+import { BreadCrumb } from 'primereact/breadcrumb';
+
+export default function Breadcrumb(props: { items: [{}] }) {
     const router = useRouter();
 
     const home = {
         icon: 'pi pi-home',
-        command: (e) => {
+        command: () => {
             router.push('../')
         }
     }
 
     return (
-        <BreadCrumb className='w-full bg-cyan-500' model={items} home={home} />
+        <BreadCrumb className='w-full bg-cyan-500' model={props.items} home={home} />
     )
 }
 

@@ -1,13 +1,17 @@
 import React from 'react';
-import { Card } from 'primereact/card';
+
 import '../node_modules/primeflex/primeflex.css';
 
-export default function Cards({ results }) {
+import { Card } from 'primereact/card';
+
+import { Character } from '@/interfaces/Character';
+
+export default function Cards(props: { results: Character[] }) {
 
     let display;
 
-    if (results) {
-        display = results.map((item) => {
+    if (props.results) {
+        display = props.results.map((item: Character) => {
             const { id, image, name, status, location, species, origin, gender } = item;
             let statusClass = '';
 

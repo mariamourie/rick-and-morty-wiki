@@ -37,12 +37,6 @@ export default function Locations() {
             });
     }
 
-    const items = [
-        {
-            label: 'Location'
-        }
-    ]
-
     const onPageChange = (event: PaginatorPageChangeEvent) => {
         setFirst(event.first);
         api(event.page + 1);
@@ -51,7 +45,7 @@ export default function Locations() {
     return (
         <div className='w-full'>
             <Header />
-            <Breadcrumb items={items} />
+            <Breadcrumb items={[{ label: 'Location' }]} />
             <div className='mt-5 flex flex-wrap justify-content-center align-items-center'>
                 <CardLocation results={fetchedData.results} />
             </div>

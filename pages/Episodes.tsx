@@ -69,16 +69,10 @@ export default function Episodes() {
         api(first, '');
     }
 
-    const items = [
-        {
-            label: 'Episodes'
-        }
-    ]
-
     return (
         <>
             <Header />
-            <Breadcrumb items={items} />
+            <Breadcrumb items={[{ label: 'Episodes' }]} />
             <div className='mt-5 h-4rem flex justify-content-center align-items-center mt-2 mb-2'>
                 <Button className='mr-2 bg-cyan-500 text-white-alpha-90' label='X' onClick={onClick} />
                 <Dropdown className='w-4 h-3rem' value={code} onChange={onChangeCodeValue} options={C.SEASON} placeholder='Select a season' />

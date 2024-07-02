@@ -1,5 +1,7 @@
-export function getDimensions(data: any) {
-    let dimensions = [];
+import { Location } from "@/interfaces/Location";
+
+export function getDimensions(data: Location[]) {
+    let dimensions: String[] = [];
 
     data.map((item) => {
         dimensions.push(item.dimension);

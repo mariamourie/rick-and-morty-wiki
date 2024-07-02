@@ -1,5 +1,7 @@
-export function getAllTypes(data: any) {
-    let types = [];
+import { Location } from '@/interfaces/Location';
+
+export function getAllTypes(data: Location[]) {
+    let types: String[] = [];
 
     data.map((item) => {
         types.push(item.type);

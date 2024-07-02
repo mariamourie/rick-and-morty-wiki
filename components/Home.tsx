@@ -1,8 +1,12 @@
 import React from 'react';
+
 import { Image } from 'primereact/image';
 import { Card } from 'primereact/card';
-import '../node_modules/primeflex/primeflex.css';
+
 import 'primereact/resources/themes/arya-blue/theme.css';
+
+import '../node_modules/primeflex/primeflex.css';
+
 import Header from './Header';
 
 export default function Home() {

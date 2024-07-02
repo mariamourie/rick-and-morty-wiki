@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+
 import { Card } from 'primereact/card';
 
-export default function EpisodeCards({ results }) {
+import { Episode } from '@/interfaces/Episode';
+
+export default function EpisodeCards(props: { results: Episode[] }) {
     let display;
 
-    if (results) {
-        display = results.map((item, index) => {
+    if (props.results) {
+        display = props.results.map((item: Episode, index: number) => {
 
             const { id, name, air_date, episode } = item;
 

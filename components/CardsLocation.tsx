@@ -1,12 +1,15 @@
 import React from "react";
+
 import { Card } from 'primereact/card';
 
-export default function CardLocation({ results }) {
+import { Location } from "@/interfaces/Location";
+
+export default function CardLocation(props: { results: Location[] }) {
 
     let display;
 
-    if (results) {
-        display = results.map((item, index) => {
+    if (props.results) {
+        display = props.results.map((item: Location, index: number) => {
             return (
                 <div className="p-card w-5 m-2" key={item.id}>
                     <Card className="p-2 w-full flex flex-column flex-wrap">
